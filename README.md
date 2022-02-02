@@ -109,7 +109,21 @@ Design and implement a program, `wordle`, that completes the implementation of o
 * In the first `TODO`, you should ensure the program accepts a single command-line argument. Let's call it $$k$$ for the sake of discussion. If the program was not run with a single command-line argument, you should print the error message as we demonstrate above and return `1`, ending the program.
 * In the second `TODO`, you should make sure that $$k$$ is one of the acceptable values (5, 6, 7, or 8), and store that value in `wordsize`; we'll need to make use of that later. If the value of $$k$$ is not one of those four values exactly, you should print the error message as we demonstrate above and return `1`, ending the program.
 
-After that, the staff has already written some code that will go through and open the word list for the length of word the user wants to guess and randomly selects one from the 1000 options available. Don't worry about necessarily understanding all of this code, it's not important for purposes of this assignment. We'll see something similar though in a later assignment, and it will make a lot more sense then! This is a good place to stop and test, before proceeding to the next `TODO`, that your code behaves as expected. It's always easier to debug programs if you do so methodically!
+After that, the staff has already written some code that will go through and open the word list for the length of word the user wants to guess and randomly selects one from the 1000 options available. Don't worry about necessarily understanding all of this code, it's not important for purposes of this assignment. We'll see something similar though in a later assignment, and it will make a lot more sense then! This is a good place to stop and test, before proceeding to the next `TODO`, that your code behaves as expected. It's always easier to debug programs if you do so methodically! After completing the above two steps, you will hopefully see the below when trying to run the program:
+
+```
+$ ./wordle 5
+This is WORDLE50
+You have 6 tries to guess the 5-letter word I'm thinking of
+Guess 1:
+Guess 2:
+Guess 3:
+Guess 4:
+Guess 5:
+Guess 6:
+```
+
+Which is to be expected! After all, you haven't yet implemented the code for actually capturing guesses, so the program as currently built simply runs through that mostly empty function at this point, doing nothing!
 
 * For the third `TODO`, you should help defend against stubborn users by making sure their guess is the correct length. For that, we'll turn our attention to the function `get_guess`, which you'll need to implement in full. A user should be prompted (as via `get_string`) to type in a $$k$$-letter word (remember, that value is passed in as a parameter to `get_guess`) and if they supply a guess of the wrong length, they should be re-prompted (much like in [Mario](/psets/1/mario/less)) until they provide exactly the value you expect from them. Right now, the distribution code doesn't do that, so you'll have to make that fix! Note that unlike the real Wordle, we actually don't check that the user's guess is a real word, so in that sense the game is perhaps a little bit easier. All guesses in this game should be in **lowercase** characters, and it is acceptable for you to assume that the user will not be so stubborn as to provide anything other than lowercase characters when making a guess. Once a legitimate guess has been obtained, it can be `return`ed.
 * Next, for the fourth `TODO`, we need to keep track of a user's "score" in the game. We do this both on a per-letter basis—by assigning a score of 2 (which we `#define`d as `EXACT`) to a letter in the correct place, 1 (which we `#define`d as `CLOSE`) to a letter that's in the word but in the wrong place, or 0 (which we `#define`d as `WRONG`)—and a per-word basis, to help us detect when we've potentially triggered the end of the game by winning. We'll use the individual letter scores when we color-code the printing. In order to store those scores, we need an array, which we've called `status`. At the start of the game, with no guesses having taken place, it should contain all 0s.
@@ -132,7 +146,7 @@ That's normal, though! Implementing `print_word` is `TODO` number 6, so we shoul
 printf(GREEN"This is WORDLE50"RESET"\n");
 ```
 
-Of course, unlike our example, you probably don't want to print a newline after each character of the word, lest it end up looking like the below!
+Of course, unlike our example, you probably don't want to print a newline after each character of the word (but you will still want to print a newline at the end of the function, resetting the color to normal at the same time), lest it end up looking like the below!
 
 ![Third image](3.png)
 
