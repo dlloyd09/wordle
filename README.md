@@ -1,33 +1,8 @@
-<style type="text/css" rel="stylesheet">
-.wrong {
-  background-color: red
-}
-
-.right {
-  background-color: green;
-}
-
-.close {
-  background-color: yellow;
-}
-</style>
-
-# Wordle50
+# Wordle
 
 For this problem, you'll implement a program that behaves similarly to the popular [Wordle](https://www.powerlanguage.co.uk/wordle/) daily word game.
 
-<pre><code>
-$ ./wordle 5
-<span class="right">This is WORDLE50</span>
-You have 6 tries to guess the 5-letter word I'm thinking of
-Input a 5-letter word: crash
-Guess 1: <span class="close">c</span><span class="wrong">ra</span><span class="close">s</span><span class="wrong">h</span>
-Input a 5-letter word: scone
-Guess 2: <span class="right">s</span><span class="close">c</span><span class="wrong">o</span><span class="close">n</span><span class="right">e</span>
-Input a 5-letter word: since
-Guess 3: <span class="right">since</span>
-You won!
-</code></pre>
+![First image](1.png)
 
 ## Getting Started
 
@@ -123,17 +98,7 @@ Input a 5-letter word:
 
 At which point, the user should type in a 5-letter word. Of course, the user could well be stubborn, and we should make sure they're following the rules:
 
-<pre><code>
-$ ./wordle 5
-<span class="right">This is WORDLE50</span>
-You have 6 tries to guess the 5-letter word I'm thinking of
-Input a 5-letter word: wordle
-Input a 5-letter word: computer
-Input a 5-letter word: okay
-Input a 5-letter word: games
-Guess 1: <span class="wrong">g</span><span class="close">a</span><span class="wrong">m</span><span class="close">e</span><span class="wrong">s</span>
-Input a 5-letter word:
-</code></pre>
+![Second image](2.png)
 
 Notice that we didn't even count any of those invalid attempts as guesses. But as soon as they made a legitimate attempt, we counted it as a guess and reported on the status of the word. Looks like the user has a few clues now; they know the word contains an `a` and an `e` somewhere, but not in the exact spots they appear in the word `games`. And they know that `g`, `m`, and `s` don't appear in the word at all, so future guesses can omit them. Perhaps they might try, say, `heart` next! ❤️
 
@@ -171,39 +136,7 @@ printf(GREEN"This is WORDLE50"RESET"\n");
 
 Of course, unlike our example, you probably don't want to print a newline after each character of the word, lest it end up looking like the below!
 
-<pre><code>
-Input a 5-letter word: games
-Guess 1: <span class="wrong">g</span>
-<span class="close">a</span>
-<span class="wrong">m</span>
-<span class="close">e</span>
-<span class="wrong">s</span>
-Input a 5-letter word:
-</code></pre>
+![Third image](3.png)
 
 {: start="7"}
 1. Finally, the seventh `TODO` is just a bit of tidying up before the program terminates. Whether the main `for` loop has ended normally, by the user running out of guesses, or because we broke out of it by getting the word exactly right, it's time to report to the user on the game's outcome. If the user did win the game, a simple `You won!` suffices to print here. Otherwise, you should print a message telling the user what the target word was, so they know the game was being honest with them (and so that you have a means to debug if you look back and realize your code was providing improper clues along the way!)
-
-## How to Test Your Code
-
-Execute the below to evaluate the correctness of your code using `check50`. But be sure to compile and test it yourself as well!
-
-```
-check50 cs50/problems/2022/spring/wordle
-```
-
-Execute the below to evaluate the style of your code using `style50`.
-
-```
-style50 wordle.c
-```
-
-## How to Submit
-
-1. Download your `wordle.c` file by control-clicking or right-clicking on the file in your codespace's file browser and choosing **Download**.
-1. Go to CS50's [Gradescope page](https://www.gradescope.com/courses/336119).
-1. Click "Problem Set 2: Wordle".
-1. Drag and drop your `wordle.c` file to the area that says "Drag & Drop". Be sure it has that **exact** filename! If you upload a file with a different name, the autograder likely will fail when trying to run it, and ensuring you have uploaded files with the correct filename is your responsibility!
-1. Click "Upload".
-
-You should see a message that says "Problem Set 2: Wordle submitted successfully!" You may not see a score just yet, but if you see the message then we've received your submission!
